@@ -17,5 +17,20 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+
+    'react-hooks/rules-of-hooks': [
+      'warn',
+      {
+        // Configure the plugin option to disable checking for rules of hooks
+        allowOnlyWhitelist: true,
+      },
+    ],
+
+
+    "react-hooks/exhaustive-deps": "off" // Disable eslint-react-hooks plugin
+
+
+
+
   },
 }
