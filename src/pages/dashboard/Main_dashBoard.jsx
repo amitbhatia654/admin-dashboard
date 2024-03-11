@@ -125,22 +125,20 @@ export default function Main_dashBoard() {
           />
         </Grid>
 
-        <Grid item lg={6} md={12} sm={12} xs={12} sx={{ my: 2 }}>
-          <LineChart
-            xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+        <Grid item lg={6}>
+          <BarChart
+            dataset={dataset}
+            yAxis={[{ scaleType: "band", dataKey: "month" }]}
             series={[
-              {
-                data: [2, 5.5, 2, 8.5, 1.5, 5],
-                area: true,
-              },
+              { dataKey: "seoul", label: "Seoul rainfall", valueFormatter },
             ]}
-            width={600}
-            height={300}
+            layout="horizontal"
+            {...chartSetting}
           />
         </Grid>
 
         <Grid item lg={6}>
-          <Stack direction="row" width="100%" textAlign="center" spacing={2}>
+          <Stack direction="row" width="100%" textAlign="center" spacing={0}>
             <Box flexGrow={1}>
               <Typography>Default</Typography>
               <PieChart
@@ -184,15 +182,17 @@ export default function Main_dashBoard() {
           <h2> OverAll Earnings: $4500 </h2>
         </Grid>
 
-        <Grid item lg={6}>
-          <BarChart
-            dataset={dataset}
-            yAxis={[{ scaleType: "band", dataKey: "month" }]}
+        <Grid item lg={6} md={12} sm={12} xs={12} sx={{}}>
+          <LineChart
+            xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
             series={[
-              { dataKey: "seoul", label: "Seoul rainfall", valueFormatter },
+              {
+                data: [2, 5.5, 2, 8.5, 1.5, 5],
+                area: true,
+              },
             ]}
-            layout="horizontal"
-            {...chartSetting}
+            width={600}
+            height={300}
           />
         </Grid>
       </Grid>

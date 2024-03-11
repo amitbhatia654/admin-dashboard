@@ -10,8 +10,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Index />}>
-          <Route
-            path="dashboard"
+          <Route 
+            path="/dashboard"
             element={<Main_dashBoard></Main_dashBoard>}
           ></Route>
           <Route path="employees" element={<h2>Emloyees Data</h2>}></Route>
