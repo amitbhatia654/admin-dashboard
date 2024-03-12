@@ -13,7 +13,6 @@ export default function SideNav({ isOpen }) {
   const location = useLocation();
 
   const routes = [
-    { path: "dashboard", logo: <WidgetsIcon /> },
     { path: "employees", logo: <ContactEmergencyIcon /> },
     { path: "customers", logo: <PeopleIcon /> },
     { path: "orders", logo: <GradingIcon /> },
@@ -36,6 +35,30 @@ export default function SideNav({ isOpen }) {
         >
           E-Kart
         </Box>
+      </Box>
+
+      <Box
+        sx={{ mx: 1, my: 2 }}
+        backgroundColor={`${location.pathname == "/" ? "grey" : ""}`}
+      >
+        <Link
+          to={"/"}
+          style={{
+            textDecoration: "none",
+            textTransform: "capitalize",
+            fontSize: "17px",
+            color: "black",
+          }}
+        >
+          {/* {data?.logo} */}
+          <WidgetsIcon />
+          <Box
+            component={"span"}
+            sx={{ display: `${isOpen && "none"}`, mx: 1 }}
+          >
+            DASHBOARD
+          </Box>
+        </Link>
       </Box>
       {routes.map((data, index) => {
         return (
