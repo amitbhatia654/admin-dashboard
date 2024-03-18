@@ -1,10 +1,10 @@
 .sidenav-small {
-    border: 1px solid black;
+    /* border: 2px solid black; */
     width: 60px;
 }
 
 .sidenav-full {
-    border: 1px solid black;
+    /* border: 2px solid black; */
     width: 200px;
 }
 

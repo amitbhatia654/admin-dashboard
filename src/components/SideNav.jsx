@@ -7,7 +7,6 @@ import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
 import PeopleIcon from "@mui/icons-material/People";
 import GradingIcon from "@mui/icons-material/Grading";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
-import StoreIcon from "@mui/icons-material/Store";
 
 export default function SideNav({ isOpen }) {
   const location = useLocation();
@@ -19,26 +18,8 @@ export default function SideNav({ isOpen }) {
   ];
   return (
     <>
-      <Box sx={{ mx: 2, my: 1 }}>
-        <StoreIcon
-          sx={{ color: "black", fontSize: "28px", fontWeight: "bold" }}
-        />
-        <Box
-          component={"span"}
-          sx={{
-            display: `${isOpen && "none"}`,
-            fontSize: 23,
-            mx: 1,
-            color: "black",
-            fontWeight: "bold",
-          }}
-        >
-          E-Kart
-        </Box>
-      </Box>
-
       <Box
-        sx={{ mx: 1, my: 2 }}
+        sx={{ mx: 1, my: 1 }}
         backgroundColor={`${location.pathname == "/" ? "grey" : ""}`}
       >
         <Link

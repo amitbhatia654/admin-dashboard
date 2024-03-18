@@ -16,7 +16,7 @@ export default function Main_dashBoard() {
         label: "rainfall (mm)",
       },
     ],
-    width: 500,
+    width: 650,
     height: 400,
   };
   const dataset = [
