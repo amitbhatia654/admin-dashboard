@@ -2,7 +2,7 @@ import React from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { Grid } from "@mui/material";
 import { LineChart, PieChart } from "@mui/x-charts";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 // import { BarChart } from "@mui/x-charts/BarChart";

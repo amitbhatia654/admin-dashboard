@@ -7,9 +7,13 @@ import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
 import PeopleIcon from "@mui/icons-material/People";
 import GradingIcon from "@mui/icons-material/Grading";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import { useFirebase } from "../context/FireBase";
+// import { useFirebase } from "../context/Firebase";
 
 export default function SideNav({ isOpen }) {
   const location = useLocation();
+  const firebase = useFirebase();
+
 
   const routes = [
     { path: "employees", logo: <ContactEmergencyIcon /> },
@@ -20,10 +24,10 @@ export default function SideNav({ isOpen }) {
     <>
       <Box
         sx={{ mx: 1, my: 1 }}
-        backgroundColor={`${location.pathname == "/" ? "grey" : ""}`}
+        backgroundColor={`${location.pathname == "/dashboard" ? "grey" : ""}`}
       >
         <Link
-          to={"/"}
+          to={"/dashboard"}
           style={{
             textDecoration: "none",
             textTransform: "capitalize",
@@ -48,7 +52,7 @@ export default function SideNav({ isOpen }) {
               sx={{ mx: 1, my: 2 }}
               index={index}
               backgroundColor={`${
-                location.pathname.slice(1) == data.path ? "grey" : ""
+                location.pathname.slice(11) == data.path ? "grey" : ""
               }`}
             >
               <Link

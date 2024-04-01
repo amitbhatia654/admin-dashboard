@@ -56,12 +56,12 @@ export default function Index() {
               my: 1,
             }}
           >
-            {/* <SearchIcon sx={{ my: 1, fontSize: 22 }}></SearchIcon>{" "} */}
             <TextField
               sx={{ width: "360px" }}
               variant="standard"
               placeholder="Search .."
             />
+            <SearchIcon sx={{ my: 1, fontSize: 22 }}></SearchIcon>{" "}
           </Box>
         </Grid>
         <Grid item lg={2}></Grid>
@@ -127,11 +127,7 @@ export default function Index() {
         <Box className="homepage " sx={{ borderTop: 2 }}>
           <Grid item lg={4}>
             <button onClick={() => setIsOpen(!isOpen)}>
-              {!isOpen ? (
-                <span fontSize="large"> X {""}</span>
-              ) : (
-                <MenuIcon fontSize="small" />
-              )}
+              {<MenuIcon fontSize="small" />}
             </button>
           </Grid>
           <Outlet></Outlet>
