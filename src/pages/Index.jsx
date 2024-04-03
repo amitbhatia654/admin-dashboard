@@ -122,8 +122,9 @@ export default function Index() {
             <MenuItem onClick={handleCloseUserMenu}>
               <Typography
                 textAlign="center"
-                onClick={() => {
-                  firebase.SignOutUser(), navigate("/");
+                onClick={async () => {
+                  await firebase.SignOutUser();
+                  navigate("/");
                 }}
               >
                 Logout

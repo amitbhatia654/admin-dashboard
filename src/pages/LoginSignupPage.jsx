@@ -31,6 +31,7 @@ const LoginSignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signup, setSignup] = useState(true);
+  const [loading, setLoading] = useState(false);
   const firebase = useFirebase();
   const navigate = useNavigate();
 
@@ -39,9 +40,11 @@ const LoginSignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     const res = !signup
       ? await firebase.signupUserWithEmailAndPass(email, password)
       : await firebase.signInWithEmailAndPass(email, password);
+    setLoading(false);
 
     if (res == "Loggin SuccessFully") navigate("/dashboard");
 
@@ -119,7 +122,7 @@ const LoginSignupPage = () => {
                   handleSubmit(e);
                 }}
               >
-                {!signup ? "Sign Up" : "Sign In"}
+                {loading ? "please Wait..." : !signup ? "Sign Up" : "Sign In"}
               </Button>
             </Stack>
           </form>
