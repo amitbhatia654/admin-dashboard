@@ -13,20 +13,21 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import SideNav from "../components/SideNav";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import StoreIcon from "@mui/icons-material/Store";
+import { useFirebase } from "../context/FireBase";
 
 import user from "../images/dp.jpeg";
+import toast from "react-hot-toast";
 
 export default function Index() {
   const [isOpen, setIsOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
+  const navigate = useNavigate();
+  const firebase = useFirebase();
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -108,11 +109,26 @@ export default function Index() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-              </MenuItem>
-            ))}
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">Profile</Typography>
+            </MenuItem>
+
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">Account</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">Dashboard</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography
+                textAlign="center"
+                onClick={() => {
+                  firebase.SignOutUser(), navigate("/");
+                }}
+              >
+                Logout
+              </Typography>
+            </MenuItem>
           </Menu>
         </Grid>
       </Grid>

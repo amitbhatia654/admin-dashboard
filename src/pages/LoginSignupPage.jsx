@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 import {
   Flex,
   Heading,
@@ -18,6 +21,7 @@ import {
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { Formik, Field, Form } from "formik";
 import { useFirebase } from "../context/FireBase";
+// import { signInWithEmailAndPassword } from "firebase/auth";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -26,13 +30,22 @@ const LoginSignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signup, setSignup] = useState(true);
   const firebase = useFirebase();
+  const navigate = useNavigate();
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    firebase.signupUserWithEmailAndPass(email, password);
+
+    const res = !signup
+      ? await firebase.signupUserWithEmailAndPass(email, password)
+      : await firebase.signInWithEmailAndPass(email, password);
+
+    if (res == "Loggin SuccessFully") navigate("/dashboard");
+
+    toast.success(res);
   };
 
   return (
@@ -106,7 +119,7 @@ const LoginSignupPage = () => {
                   handleSubmit(e);
                 }}
               >
-                Login
+                {!signup ? "Sign Up" : "Sign In"}
               </Button>
             </Stack>
           </form>
@@ -114,9 +127,9 @@ const LoginSignupPage = () => {
       </Stack>
       <Box>
         New to us?{" "}
-        <Link color="teal.500" href="#">
-          Sign Up
-        </Link>
+        <Button color="teal.500" onClick={() => setSignup(!signup)}>
+          {signup ? "Sign Up" : "Sign In "}
+        </Button>
       </Box>
     </Flex>
   );

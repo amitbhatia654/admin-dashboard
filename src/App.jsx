@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Main_dashBoard from "./pages/dashboard/Main_dashBoard";
 import LoginSignupPage from "./pages/LoginSignupPage";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           element={<h3> Something Went Wrong or No Route Found</h3>}
         ></Route>
       </Routes>
+      <Toaster />
     </>
   );
 }
