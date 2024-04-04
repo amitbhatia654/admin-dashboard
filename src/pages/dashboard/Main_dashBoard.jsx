@@ -16,7 +16,7 @@ export default function Main_dashBoard() {
         label: "rainfall (mm)",
       },
     ],
-    width: 650,
+    width: 550,
     height: 400,
   };
   const dataset = [
@@ -138,7 +138,7 @@ export default function Main_dashBoard() {
         </Grid>
 
         <Grid item lg={6}>
-          <Stack direction="row" width="100%" textAlign="center" spacing={0}>
+          <Stack direction="row" textAlign="center" spacing={0}>
             <Box flexGrow={1}>
               <Typography>Default</Typography>
               <PieChart
@@ -191,7 +191,7 @@ export default function Main_dashBoard() {
                 area: true,
               },
             ]}
-            width={600}
+            width={450}
             height={300}
           />
         </Grid>

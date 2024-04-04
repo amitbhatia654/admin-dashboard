@@ -39,62 +39,53 @@ export default function Index() {
 
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid
-          item
-          lg={2}
-          sx={{ color: "blue", fontSize: "28px", fontWeight: "bold", m: 2 }}
-        >
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        // width={"100%"}
+        sx={{ width: "100%" }}
+      >
+        <Box sx={{ color: "blue", fontSize: "26px", fontWeight: "bold", m: 2 }}>
           E-Kart
-          {/* <StoreIcon sx={{ fontSize: "30px" }} /> */}
-        </Grid>
-        <Grid item lg={2}></Grid>
-        <Grid item lg={4} md={3} sm={3} xs={3}>
-          <Box
-            sx={{
-              border: "0px solid",
-              // backgroundColor: "silver",
-              my: 1,
-            }}
-          >
-            <TextField
-              sx={{ width: "360px" }}
-              variant="standard"
-              placeholder="Search .."
-            />
-            <SearchIcon sx={{ my: 1, fontSize: 22 }}></SearchIcon>{" "}
-          </Box>
-        </Grid>
-        <Grid item lg={2}></Grid>
-        <Grid item lg={1} sx={{ my: 1 }}>
-          <IconButton
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <Badge badgeContent={4} color="error">
-              <MailIcon />
-            </Badge>
-          </IconButton>
+        </Box>
+        <div>
+          <TextField
+            // sx={{ width: "360px" }}
+            variant="standard"
+            placeholder="Search .."
+          />
+          <SearchIcon sx={{ fontSize: 22 }}></SearchIcon>{" "}
+        </div>
+        <div>
+          <Box display={{ xs: "none", sm: "none", lg: "inline", md: "inline" }}>
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
+              <Badge badgeContent={4} color="error">
+                <MailIcon />
+              </Badge>
+            </IconButton>
 
-          <IconButton
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Grid>
-        <Grid item lg={0} sx={{ my: 1 }}>
-          <Tooltip title="My Profile">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Box>
+
+          <Tooltip title="My Profile" placement="left-end">
+            <IconButton onClick={handleOpenUserMenu} sx={{ mx: 2 }}>
               <Avatar alt="Aemy Sharp" src={user} />
             </IconButton>
           </Tooltip>
           <Menu
-            sx={{ mt: "45px" }}
+            // sx={{ mt: "45px" }}
             id="menu-appbar"
             anchorEl={anchorElUser}
             anchorOrigin={{
@@ -131,8 +122,9 @@ export default function Index() {
               </Typography>
             </MenuItem>
           </Menu>
-        </Grid>
-      </Grid>
+        </div>
+      </Box>
+
       <div className="main-div ">
         <Box
           className={!isOpen ? "sidenav-full" : "sidenav-small"}
@@ -142,7 +134,7 @@ export default function Index() {
           <SideNav isOpen={isOpen}></SideNav>
         </Box>
         <Box className="homepage " sx={{ borderTop: 2 }}>
-          <Grid item lg={4}>
+          <Grid item lg={4} md={4} sm={4} xs={4}>
             <button onClick={() => setIsOpen(!isOpen)}>
               {<MenuIcon fontSize="small" />}
             </button>

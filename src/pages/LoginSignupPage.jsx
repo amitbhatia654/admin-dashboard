@@ -46,9 +46,15 @@ const LoginSignupPage = () => {
       : await firebase.signInWithEmailAndPass(email, password);
     setLoading(false);
 
-    if (res == "Loggin SuccessFully") navigate("/dashboard");
-
-    toast.success(res);
+    if (res == "Loggin SuccessFully") {
+      navigate("/dashboard");
+      toast.success(res);
+    } else if (res == "Register Successfully") {
+      toast.success(res);
+      setSignup(!signup);
+    } else {
+      toast.error(res);
+    }
   };
 
   return (
@@ -67,7 +73,7 @@ const LoginSignupPage = () => {
         alignItems="center"
       >
         <Avatar bg="teal.500" />
-        <Heading color="teal.400">Welcome</Heading>
+        <Heading color="teal.400">WELCOME </Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
           <form>
             <Stack
