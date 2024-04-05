@@ -14,7 +14,6 @@ export default function SideNav({ isOpen }) {
   const location = useLocation();
   const firebase = useFirebase();
 
-
   const routes = [
     { path: "employees", logo: <ContactEmergencyIcon /> },
     { path: "customers", logo: <PeopleIcon /> },
@@ -24,10 +23,10 @@ export default function SideNav({ isOpen }) {
     <>
       <Box
         sx={{ mx: 1, my: 1 }}
-        backgroundColor={`${location.pathname == "/dashboard" ? "grey" : ""}`}
+        backgroundColor={`${location.pathname == "/" ? "grey" : ""}`}
       >
         <Link
-          to={"/dashboard"}
+          to={"/"}
           style={{
             textDecoration: "none",
             textTransform: "capitalize",
@@ -52,7 +51,7 @@ export default function SideNav({ isOpen }) {
               sx={{ mx: 1, my: 2 }}
               index={index}
               backgroundColor={`${
-                location.pathname.slice(11) == data.path ? "grey" : ""
+                location.pathname.slice(1) == data.path ? "grey" : ""
               }`}
             >
               <Link

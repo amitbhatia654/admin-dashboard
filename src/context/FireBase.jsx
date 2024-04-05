@@ -39,7 +39,7 @@ const fireStore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
 export const FireBaseProvider = (props) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem("dashboard") || "");
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
       if (user) setUser(user);
@@ -57,7 +57,13 @@ export const FireBaseProvider = (props) => {
 
   const signInWithEmailAndPass = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(firebaseAuth, email, password);
+      const res = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+      localStorage.setItem("dashboard", "UserLogin");
+
       return "Loggin SuccessFully";
     } catch (error) {
       return error.message;
@@ -100,6 +106,7 @@ export const FireBaseProvider = (props) => {
 
   const SignOutUser = () => {
     signOut(firebaseAuth);
+    localStorage.removeItem("dashboard");
   };
 
   const deletePost = async (id) => {

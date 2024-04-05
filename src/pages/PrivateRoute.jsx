@@ -5,7 +5,11 @@ import { useFirebase } from "../context/FireBase";
 
 const PrivateRoute = ({ component: Component }) => {
   const firebase = useFirebase();
-  return firebase.isUserLoggedIn ? <Index /> : <Navigate to="/" replace />;
+  return firebase?.isUserLoggedIn ? (
+    <Index />
+  ) : (
+    <Navigate to="/login" replace />
+  );
 };
 
 export default PrivateRoute;

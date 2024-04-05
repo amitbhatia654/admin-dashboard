@@ -35,6 +35,8 @@ const LoginSignupPage = () => {
   const firebase = useFirebase();
   const navigate = useNavigate();
 
+  console.log(firebase.isUserLoggedIn, "user details");
+
   const handleShowClick = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (e) => {
@@ -47,7 +49,7 @@ const LoginSignupPage = () => {
     setLoading(false);
 
     if (res == "Loggin SuccessFully") {
-      navigate("/dashboard");
+      navigate("/");
       toast.success(res);
     } else if (res == "Register Successfully") {
       toast.success(res);

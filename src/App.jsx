@@ -9,6 +9,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Toaster } from "react-hot-toast";
 import { useFirebase } from "./context/FireBase";
 import PrivateRoute from "./pages/PrivateRoute";
+import Employee from "./pages/EmployeeManagement/Employee";
+import CreateEmployeeData from "./pages/EmployeeManagement/CreateEmployeeData";
 
 function App() {
   const firebase = useFirebase();
@@ -18,16 +20,20 @@ function App() {
       <Routes>
         {" "}
         <Route
-          path="/"
+          path="/login"
           element={
             <ChakraProvider>
               <LoginSignupPage />
             </ChakraProvider>
           }
         ></Route>
-        <Route path="/dashboard" element={<PrivateRoute />}>
+        <Route path="/" element={<PrivateRoute />}>
           <Route index element={<Main_dashBoard></Main_dashBoard>}></Route>
-          <Route path="employees" element={<h2>Emloyees Data</h2>}></Route>
+          <Route path="employees" element={<Employee />}></Route>
+          <Route
+            path="/add-new-employee"
+            element={<CreateEmployeeData />}
+          ></Route>
           <Route path="customers" element={<h2>Emloyees Data</h2>}></Route>
           <Route path="orders" element={<h2>Order Data</h2>}></Route>
         </Route>
