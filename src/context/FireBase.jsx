@@ -70,30 +70,32 @@ export const FireBaseProvider = (props) => {
     }
   };
 
-  const handleCreateNewPost = async (title, image, description) => {
-    const imageRef = ref(
-      storage,
-      `uploads/coverImage/${Date.now()}-${image.name}`
-    );
-    const uploadResult = await uploadBytes(imageRef, image);
+  const createEmployee = async (data) => {
+    // const imageRef = ref(
+    //   storage,
+    //   `uploads/coverImage/${Date.now()}-${image.name}`
+    // );
+    // const uploadResult = await uploadBytes(imageRef, image);
 
-    const result = await addDoc(collection(fireStore, "blogposts"), {
-      title,
-      description,
-      imageUrl: uploadResult.ref.fullPath,
-      userEmail: isUserLoggedIn.email,
-      userId: isUserLoggedIn.uid,
+    const result = await addDoc(collection(fireStore, "employees"), {
+      empName: data.empName,
+      empEmail: data.empEmail,
+      empPhone: data.empPhone,
+      empDepartment: data.empDepartment,
+      empAddress: data.empAddress,
     });
+
+    // console.log("resultts", result)
 
     return result.id;
   };
 
   const getAllPosts = () => {
-    return getDocs(collection(fireStore, "blogposts"));
+    return getDocs(collection(fireStore, "employees"));
   };
 
   const getPostbyId = async (id) => {
-    const docRef = doc(fireStore, "blogposts", id);
+    const docRef = doc(fireStore, "employees", id);
     const result = await getDoc(docRef);
     return result.data();
   };
@@ -110,7 +112,7 @@ export const FireBaseProvider = (props) => {
   };
 
   const deletePost = async (id) => {
-    await deleteDoc(doc(fireStore, "blogposts", id));
+    await deleteDoc(doc(fireStore, "employees", id));
     return "post Deleted Successfully";
   };
 
@@ -122,7 +124,7 @@ export const FireBaseProvider = (props) => {
       );
       const uploadResult = await uploadBytes(imageRef, image);
 
-      const PostRef = doc(fireStore, "blogposts", id);
+      const PostRef = doc(fireStore, "employees", id);
       const res = await updateDoc(PostRef, {
         title,
         imageUrl: uploadResult.ref.fullPath,
@@ -141,7 +143,7 @@ export const FireBaseProvider = (props) => {
         signupUserWithEmailAndPass,
         signInWithEmailAndPass,
         isUserLoggedIn,
-        handleCreateNewPost,
+        createEmployee,
         getAllPosts,
         getPostbyId,
         getImageUrl,
