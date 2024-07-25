@@ -46,7 +46,7 @@ export default function SideNav({ isOpen }) {
       </Box>
       {routes.map((data, index) => {
         return (
-          <>
+          <div key={index}>
             <Box
               sx={{ mx: 1, my: 2 }}
               index={index}
@@ -72,7 +72,7 @@ export default function SideNav({ isOpen }) {
                 </Box>
               </Link>
             </Box>
-          </>
+          </div>
         );
       })}
     </>

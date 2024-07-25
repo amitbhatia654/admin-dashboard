@@ -35,8 +35,6 @@ const LoginSignupPage = () => {
   const firebase = useFirebase();
   const navigate = useNavigate();
 
-  console.log(firebase.isUserLoggedIn, "user details");
-
   const handleShowClick = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (e) => {

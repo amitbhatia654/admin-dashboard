@@ -71,12 +71,6 @@ export const FireBaseProvider = (props) => {
   };
 
   const createEmployee = async (data) => {
-    // const imageRef = ref(
-    //   storage,
-    //   `uploads/coverImage/${Date.now()}-${image.name}`
-    // );
-    // const uploadResult = await uploadBytes(imageRef, image);
-
     const result = await addDoc(collection(fireStore, "employees"), {
       empName: data.empName,
       empEmail: data.empEmail,
@@ -84,8 +78,6 @@ export const FireBaseProvider = (props) => {
       empDepartment: data.empDepartment,
       empAddress: data.empAddress,
     });
-
-    // console.log("resultts", result)
 
     return result.id;
   };

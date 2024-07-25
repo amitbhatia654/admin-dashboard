@@ -57,6 +57,7 @@ export default function Employee() {
         <Table sx={{}} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "grey" }}>
             <TableRow>
+              <TableCell>S.No.</TableCell>
               <TableCell>Employee Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Phone</TableCell>
@@ -65,11 +66,12 @@ export default function Employee() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allemployee?.map((row) => (
+            {allemployee?.map((row, index) => (
               <TableRow
                 key={row.data()?.empName}
                 // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                <TableCell>{index + 1}</TableCell>
                 <TableCell>{row.data().empName}</TableCell>
                 <TableCell>{row?.data().empEmail}</TableCell>
                 <TableCell>{row?.data().empPhone}</TableCell>

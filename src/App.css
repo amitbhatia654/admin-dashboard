@@ -27,6 +27,10 @@ body {
     background-color: rgb(214, 202, 202);
 }
 
+.text-danger {
+    color: red;
+}
+
 
 /* For extra small devices (phones) */
 @media only screen and (max-width: 575.98px) {
