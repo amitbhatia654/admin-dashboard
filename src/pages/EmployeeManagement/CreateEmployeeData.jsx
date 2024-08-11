@@ -21,9 +21,7 @@ export default function CreateEmployeeData() {
   const [loading, setloading] = useState(false);
 
   const handleSubmit = async (values) => {
-    return;
     setloading(true);
-
     const res = await firebase.createEmployee(values);
     setloading(false);
     toast.success("Employee add Successfully");
@@ -100,7 +98,12 @@ export default function CreateEmployeeData() {
                       id="outlined-basic"
                       label="Phone"
                       type="number"
-                      onChange={props.handleChange}
+                      value={props.values.empPhone}
+                      onChange={(e) => {
+                        if (e.target.value.length <= 10) {
+                          props.setFieldValue("empPhone", e.target.value);
+                        }
+                      }}
                       variant="outlined"
                       sx={{ m: 1 }}
                     />

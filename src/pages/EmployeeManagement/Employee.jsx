@@ -66,19 +66,36 @@ export default function Employee() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allemployee?.map((row, index) => (
-              <TableRow
-                key={row.data()?.empName}
-                // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{row.data().empName}</TableCell>
-                <TableCell>{row?.data().empEmail}</TableCell>
-                <TableCell>{row?.data().empPhone}</TableCell>
-                <TableCell>{row?.data().empDepartment}</TableCell>
-                <TableCell>{row?.data().empAddress}</TableCell>
+            {allemployee.length > 3 ? (
+              allemployee?.map((row, index) => (
+                <TableRow
+                  key={row.data()?.empName}
+                  // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{row.data().empName}</TableCell>
+                  <TableCell>{row?.data().empEmail}</TableCell>
+                  <TableCell>{row?.data().empPhone}</TableCell>
+                  <TableCell>{row?.data().empDepartment}</TableCell>
+                  <TableCell>{row?.data().empAddress}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow style={{ border: "2px solid black" }}>
+                <TableCell
+                  style={{
+                    border: "2px solid black",
+                    display: "flex",
+                    justifyContent: "center",
+                    // alignItems: "center",
+                  }}
+                  colSpan={12}
+                >
+                  {" "}
+                  <div className="loader"></div>
+                </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
