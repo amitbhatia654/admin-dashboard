@@ -105,24 +105,20 @@ export const FireBaseProvider = (props) => {
 
   const deletePost = async (id) => {
     await deleteDoc(doc(fireStore, "employees", id));
-    return "post Deleted Successfully";
+    return "Data Deleted Successfully";
   };
 
-  const UpdatePost = async (id, title, image, description) => {
+  const UpdatePost = async (id, data) => {
     try {
-      const imageRef = ref(
-        storage,
-        `uploads/coverImage/${Date.now()}-${image.name}`
-      );
-      const uploadResult = await uploadBytes(imageRef, image);
-
       const PostRef = doc(fireStore, "employees", id);
       const res = await updateDoc(PostRef, {
-        title,
-        imageUrl: uploadResult.ref.fullPath,
-        description,
+        empName: data.empName,
+        empEmail: data.empEmail,
+        empPhone: data.empPhone,
+        empDepartment: data.empDepartment,
+        empAddress: data.empAddress,
       });
-      return res;
+      return "employee updated successfully";
     } catch (error) {
       console.log(error);
       return error.message;

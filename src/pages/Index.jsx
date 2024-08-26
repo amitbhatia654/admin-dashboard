@@ -46,7 +46,7 @@ export default function Index() {
         sx={{ width: "100%" }}
       >
         <Box sx={{ color: "blue", fontSize: "26px", fontWeight: "bold", m: 2 }}>
-          E-Kart
+          E-COMMERCE
         </Box>
         <div>
           <TextField
@@ -104,12 +104,6 @@ export default function Index() {
               <Typography textAlign="center">Profile</Typography>
             </MenuItem>
 
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">Account</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">Dashboard</Typography>
-            </MenuItem>
             <MenuItem onClick={handleCloseUserMenu}>
               <Typography
                 textAlign="center"

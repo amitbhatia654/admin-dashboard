@@ -6,22 +6,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useFirebase } from "../../context/FireBase";
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+import DeleteIcon from "@mui/icons-material/Delete";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import toast from "react-hot-toast";
 
 export default function Employee() {
   const firebase = useFirebase();
@@ -29,8 +20,26 @@ export default function Employee() {
 
   const navigate = useNavigate();
 
+  const fetchData = async () => {
+    firebase.getAllPosts().then((data) => {
+      setAllEmployee(data.docs);
+    });
+  };
+
+  const handleEdit = (id) => {
+    navigate("/add-new-employee", { state: { id } });
+  };
+
+  const handleDelete = async (id) => {
+    const res = await firebase.deletePost(id);
+    if (res) {
+      toast.success(res);
+      setAllEmployee(allemployee.filter((data) => data.id != id));
+    }
+  };
+
   useEffect(() => {
-    firebase.getAllPosts().then((data) => setAllEmployee(data.docs));
+    fetchData();
   }, []);
 
   return (
@@ -41,7 +50,7 @@ export default function Employee() {
     >
       <Box display={"flex"} justifyContent={"space-between"}>
         <Box component={"h2"} sx={{ my: 2 }}>
-          All Employee Data{" "}
+          All Employees{" "}
         </Box>
 
         <Button
@@ -63,10 +72,11 @@ export default function Employee() {
               <TableCell>Phone</TableCell>
               <TableCell>Department</TableCell>
               <TableCell>Address</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {allemployee.length > 3 ? (
+            {allemployee.length >= 0 ? (
               allemployee?.map((row, index) => (
                 <TableRow
                   key={row.data()?.empName}
@@ -78,16 +88,36 @@ export default function Employee() {
                   <TableCell>{row?.data().empPhone}</TableCell>
                   <TableCell>{row?.data().empDepartment}</TableCell>
                   <TableCell>{row?.data().empAddress}</TableCell>
+                  <TableCell>
+                    <Grid container>
+                      <Grid item lg={4}>
+                        <button
+                          type="button"
+                          onClick={() => handleEdit(row.id)}
+                        >
+                          <BorderColorIcon />
+                        </button>
+                      </Grid>
+                      <Grid item lg={4}>
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(row.id)}
+                          // style={{ backgroundColor: "grey" }}
+                        >
+                          <DeleteIcon />
+                        </button>
+                      </Grid>
+                    </Grid>
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
-              <TableRow style={{ border: "2px solid black" }}>
+              <TableRow>
                 <TableCell
                   style={{
                     border: "2px solid black",
                     display: "flex",
                     justifyContent: "center",
-                    // alignItems: "center",
                   }}
                   colSpan={12}
                 >

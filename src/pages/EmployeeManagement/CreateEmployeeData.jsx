@@ -6,8 +6,8 @@ import {
   TableContainer,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { ErrorMessage, Form, Formik } from "formik";
 import { Label } from "@mui/icons-material";
@@ -17,16 +17,40 @@ import { addEmployee } from "../../assets/FormSchema";
 
 export default function CreateEmployeeData() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { id } = location.state || {};
   const firebase = useFirebase();
   const [loading, setloading] = useState(false);
+  const [data, setData] = useState({});
 
   const handleSubmit = async (values) => {
     setloading(true);
-    const res = await firebase.createEmployee(values);
+    const res = id
+      ? await firebase.UpdatePost(id, values)
+      : await firebase.createEmployee(values);
     setloading(false);
-    toast.success("Employee add Successfully");
+    console.log(res, "the response is");
+    if (id) {
+      toast.success(res);
+    } else {
+      toast.success("Employee added Successfully");
+    }
     navigate("/employees");
   };
+
+  const getEmpById = async () => {
+    const result = await firebase.getPostbyId(id);
+    console.log(result, "result");
+    if (result) {
+      setData(result);
+    } else {
+      setData({});
+    }
+  };
+
+  useEffect(() => {
+    if (id) getEmpById();
+  }, []);
   return (
     <>
       <Grid container justifyContent="space-between" alignItems="center">
@@ -38,7 +62,7 @@ export default function CreateEmployeeData() {
           </button>
         </Grid>
         <Grid item sx={{ margin: "0 auto" }}>
-          <h1>Add Employee Details</h1>
+          <h1>{id ? "Edit" : "Add"} Employee Details</h1>
           <hr />
         </Grid>
       </Grid>
@@ -46,14 +70,19 @@ export default function CreateEmployeeData() {
       <Grid container justifyContent="center" sx={{ my: 4 }}>
         <Grid item>
           <Formik
-            initialValues={{
-              empName: "",
-              empEmail: "",
-              empPhone: "",
-              empDepartment: "",
-              empAddress: "",
-            }}
+            initialValues={
+              id
+                ? data
+                : {
+                    empName: "",
+                    empEmail: "",
+                    empPhone: "",
+                    empDepartment: "",
+                    empAddress: "",
+                  }
+            }
             validationSchema={addEmployee}
+            enableReinitialize={true}
             onSubmit={(values) => handleSubmit(values)}
           >
             {(props) => (
@@ -63,7 +92,8 @@ export default function CreateEmployeeData() {
                     <TextField
                       name="empName"
                       id="outlined-basic"
-                      label="Name"
+                      placeholder="enter name"
+                      value={props.values.empName}
                       onChange={props.handleChange}
                       variant="outlined"
                       sx={{ m: 1 }}
@@ -78,7 +108,8 @@ export default function CreateEmployeeData() {
                     <TextField
                       name="empEmail"
                       id="outlined-basic"
-                      label="Email"
+                      value={props.values.empEmail}
+                      placeholder="enter email"
                       type="email"
                       onChange={props.handleChange}
                       variant="outlined"
@@ -96,7 +127,7 @@ export default function CreateEmployeeData() {
                     <TextField
                       name="empPhone"
                       id="outlined-basic"
-                      label="Phone"
+                      placeholder="enter phone number"
                       type="number"
                       value={props.values.empPhone}
                       onChange={(e) => {
@@ -117,8 +148,9 @@ export default function CreateEmployeeData() {
                     <TextField
                       name="empDepartment"
                       id="outlined-basic"
-                      label="Department"
+                      placeholder="enter department"
                       onChange={props.handleChange}
+                      value={props.values.empDepartment}
                       variant="outlined"
                       sx={{ m: 1 }}
                     />
@@ -132,8 +164,9 @@ export default function CreateEmployeeData() {
                     <TextField
                       name="empAddress"
                       id="outlined-basic"
-                      label="Address"
+                      placeholder="enter address"
                       onChange={props.handleChange}
+                      value={props.values.empAddress}
                       variant="outlined"
                       sx={{ m: 1, width: "100%" }}
                     />
