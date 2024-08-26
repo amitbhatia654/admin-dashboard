@@ -46,7 +46,7 @@ export default function Index() {
         sx={{ width: "100%" }}
       >
         <Box sx={{ color: "blue", fontSize: "26px", fontWeight: "bold", m: 2 }}>
-          E-COMMERCE
+          E-Cart
         </Box>
         <div>
           <TextField
